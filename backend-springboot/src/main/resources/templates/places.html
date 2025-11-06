@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting Manager</title>
+    <link rel="stylesheet" th:href="@{/css/css.css}">
+</head>
+<body>
+    <h1>PLACES</h1>
+    <div class="tableResult" th:if="${places != null && places.isEmpty() != true}">
+        <div class="rowResultHeader">
+            <div class="cellResult" th:text="ID"></div>
+            <div class="cellResult" th:text="STREET"></div>
+            <div class="cellResult" th:text="NUMBER"></div>
+            <div class="cellResult" th:text="'ZIP CODE'"></div>
+            <div class="cellResult" th:text="CITY"></div>
+            <div class="cellResult" th:text="STATE"></div>
+            <div class="cellResult" th:text="COUNTRY"></div>
+            <div class="cellResult" th:text="DETAILS"></div>
+            <div class="cellResult" th:text="'MEETING LIST'"></div>
+        </div>
+        <div class="rowResult" th:each="place : ${places}">
+            <div class="cellResult" th:text="${place.id}"></div>
+            <div class="cellResult" th:text="${place.street}"></div>
+            <div class="cellResult" th:text="${place.number}"></div>
+            <div class="cellResult" th:text="${place.zipCode}"></div>
+            <div class="cellResult" th:text="${place.city}"></div>
+            <div class="cellResult" th:text="${place.state}"></div>
+            <div class="cellResult" th:text="${place.country}"></div>
+            <div class="cellResult" th:text="${place.details}"></div>
+            <div class="cellResult">
+                <ul th:each="meeting : ${place.meetingList}">
+                    <li>
+                        <p>
+                            <a th:href="@{/show-meeting(meetingId=${meeting.id})}">
+                                <img th:src="@{img/details.png}" th:alt="'details image'" th:title="DETAILS" />
+                            </a>
+                        </p>
+                        <p th:text="'id: '+${meeting.id}" />
+                        <p th:text="'Start: '+${meeting.localDateTimeStart.toLocalDate()}+' '+${meeting.localDateTimeStart.toLocalTime()}"></p>
+                        <p th:text="'End: '+${meeting.localDateTimeEnd.toLocalDate()}+' '+${meeting.localDateTimeEnd.toLocalTime()}"></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="tableResult" th:if="${places == null || places.isEmpty() == true}">
+        <h2 th:text="'You have no Places currently registered with us !'" />
+    </div>
+    <footer>
+        <div><a href="#" title="Add a new place" th:href="@{/add-place-form}">Add New Place</a></div>
+        <div><a href="#" title="Welcome Home Page" th:href="@{/}">Home</a></div>
+    </footer>
+</body>

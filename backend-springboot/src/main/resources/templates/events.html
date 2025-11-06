@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting Manager</title>
+    <link rel="stylesheet" th:href="@{/css/css.css}">
+</head>
+<body>
+    <h1>EVENTS</h1>
+    <div class="tableResult" th:if="${events != null && events.isEmpty() != true}">
+        <div class="rowResultHeader">
+            <div class="cellResult" th:text="ID"></div>
+            <div class="cellResult" th:text="NAME"></div>
+            <div class="cellResult" th:text="THEME"></div>
+            <div class="cellResult" th:text="OUTFIT"></div>
+            <div class="cellResult" th:text="HOST"></div>
+            <div class="cellResult" th:text="ATTENDANCE"></div>
+            <div class="cellResult" th:text="DETAILS"></div>
+            <div class="cellResult" th:text="MEETING"></div>
+        </div>
+        <div class="rowResult" th:each="event : ${events}">
+            <div class="cellResult" th:text="${event.id}"></div>
+            <div class="cellResult" th:text="${event.name}"></div>
+            <div class="cellResult" th:text="${event.theme}"></div>
+            <div class="cellResult" th:text="${event.outfit}"></div>
+            <div class="cellResult" th:text="${event.host}"></div>
+            <div class="cellResult" th:text="${event.attendance}"></div>
+            <div class="cellResult" th:text="${event.details}"></div>
+            <div class="cellResult">
+                <div th:if="${event.meeting != null}">
+                    <p>
+                        <a th:href="@{/show-meeting(meetingId=${event.meeting.id})}">
+                            <img th:src="@{img/details.png}" th:alt="'details image'" th:title="DETAILS" />
+                        </a>
+                    </p>
+                    <p th:text="'id: '+${event.meeting.id}" />
+                    <p th:text="'Start: '+${event.meeting.localDateTimeStart.toLocalDate()}+' '+${event.meeting.localDateTimeStart.toLocalTime()}"></p>
+                    <p th:text="'End: '+${event.meeting.localDateTimeEnd.toLocalDate()}+' '+${event.meeting.localDateTimeEnd.toLocalTime()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tableResult" th:if="${events == null || events.isEmpty() == true}">
+        <h2 th:text="'You have no Events currently registered with us !'" />
+    </div>
+    <footer>
+        <div><a href="#" title="Add a new event" th:href="@{/add-event-form}">Add New Event</a></div>
+        <div><a href="#" title="Welcome Home Page" th:href="@{/}">Home</a></div>
+    </footer>
+</body>

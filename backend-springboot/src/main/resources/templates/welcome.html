@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting Manager</title>
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+</head>
+<body>
+    <h1>Meeting Management Application</h1>
+    <h3 th:text="${dateTime}"></h3>
+    <div class="centralContent table">
+        <div class="row">
+            <a class="cell" href="/meetings" title="show all meetings">
+                <img id="meeting2" src="img/meeting2.png" title="show all meetings">
+            </a>
+            <a class="cell" href="/persons" title="show all persons">
+                <img id="meeting" src="img/meeting.png" title="show all persons">
+            </a>
+        </div>
+        <div class="row">
+            <a class="cell" href="/events" title="show all events">
+                <img id="meeting3" src="img/meeting3.png" title="show all events">
+            </a>
+            <a class="cell" href="/places" title="show all places">
+                <img id="meeting4" src="img/meeting4.png" title="show all places">
+            </a>
+        </div>
+    </div>
+    <footer>
+        <p>Developed by:</p>
+        <a href="http://www.danielpm1982.com">danielpm1982.com</a>
+        <br>
+        <a href="mailto:danielpm1982.com@domainsbyproxy.com">danielpm1982.com@domainsbyproxy.com</a>
+    </footer>
+</body>

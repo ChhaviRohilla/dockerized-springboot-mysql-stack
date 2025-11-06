@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Meeting Manager</title>
+    <link rel="stylesheet" th:href="@{/css/css.css}">
+</head>
+<body>
+    <h1>MEETINGS</h1>
+    <div class="tableResult" th:if="${meetings != null && meetings.isEmpty() != true}">
+        <div class="rowResultHeader">
+            <div class="cellResult" th:text="ID"></div>
+            <div class="cellResult" th:text="START"></div>
+            <div class="cellResult" th:text="END"></div>
+            <div class="cellResult" th:text="'PERSON LIST'"></div>
+            <div class="cellResult" th:text="PLACE"></div>
+            <div class="cellResult" th:text="EVENT"></div>
+            <div class="cellResult" th:text="DETAILS"></div>
+        </div>
+        <div class="rowResult" th:each="meeting : ${meetings}">
+            <div class="cellResult">
+                <p th:text="${meeting.id}" />
+                <p>
+                    <a th:href="@{/show-meeting(meetingId=${meeting.id})}">
+                        <img th:src="@{img/details.png}" th:alt="'details image'" th:title="DETAILS" />
+                    </a>
+                </p>
+                <p>
+                    <a th:href="@{/update-meeting-form(meetingId=${meeting.id})}">
+                        <img th:src="@{img/update.png}" th:alt="'update image'" th:title="UPDATE" />
+                    </a>
+                </p>
+                <p>
+                    <a th:href="@{/delete-meeting(meetingId=${meeting.id})}">
+                        <img th:src="@{img/delete.png}" th:alt="'delete image'" th:title="DELETE" />
+                    </a>
+                </p>
+            </div>
+            <div class="cellResult" th:text="${meeting.localDateTimeStart.toLocalDate()}+' '+${meeting.localDateTimeStart.toLocalTime()}"></div>
+            <div class="cellResult" th:text="${meeting.localDateTimeEnd.toLocalDate()}+' '+${meeting.localDateTimeStart.toLocalTime()}"></div>
+            <div class="cellResult">
+                <ul th:each="person : ${meeting.personList}">
+                    <li th:text="'id: '+${person.id}+' name: '+${person.name}"></li>
+                </ul>
+            </div>
+            <div class="cellResult" th:text="'id: '+${meeting.place.id}+' street: '+${meeting.place.street}+' number: '+${meeting.place.number}"></div>
+            <div class="cellResult" th:text="'id: '+${meeting.event.id}+' name: '+${meeting.event.name}"></div>
+            <div class="cellResult" th:text="${meeting.details}"></div>
+        </div>
+    </div>
+    <div class="tableResult" th:if="${meetings == null || meetings.isEmpty() == true}">
+        <h2 th:text="'You have no Meetings currently registered with us !'" />
+    </div>
+    <footer>
+        <div><a href="#" title="Add a new meeting" th:href="@{/add-meeting-form}">Add New Meeting</a></div>
+        <div><a href="#" title="Welcome Home Page" th:href="@{/}">Home</a></div>
+    </footer>
+</body>
